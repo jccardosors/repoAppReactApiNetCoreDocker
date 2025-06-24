@@ -1,0 +1,52 @@
+version: '3.4'
+name: principal-container
+
+services:
+  project.api:
+    #image: ${DOCKER_REGISTRY-}projectapi
+    container_name: api-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+        - "8080:8080"
+        - "8081:8081"
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - apisqlnetwork
+    restart: on-failure
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: db-container
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password@12345
+    ports:
+      - "1433:1433"
+    volumes:
+     - sqlvolume:/var/opt/mssql
+    networks:
+      - apisqlnetwork
+
+  appreactfront:
+    build: 
+        context: ./appreactfront
+        dockerfile: Dockerfile
+    container_name: app-react-entries
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - apisqlnetwork
+
+networks:
+  apisqlnetwork:
+
+volumes:
+  sqlvolume:
+
