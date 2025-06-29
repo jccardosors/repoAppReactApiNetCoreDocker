@@ -1,6 +1,7 @@
-Siga as instruções abaixo para executar a solução:
+<p><b>Projeto com CRUD de lançamentos utilizando um app em React conectando com uma api rest em .NET Core e base de dados em SQL Server. O projeto também pode ser containerizado com Docker compose.</b></p>
 
-<h1>Passos para rodar o projeto</h1>
+
+<h1>Passos para rodar o projeto em container Docker</h1>
 
 1 – Certifique-se de ter Docker Desktop instalado em sua máquina (https://docs.docker.com/desktop/setup/install/windows-install/);
 
